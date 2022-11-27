@@ -11,7 +11,11 @@ job "eth-node" {
       config {
         image = "thorax/erigon:stable"
         volumes = [
-          "local/erigon:/root/.local/share/erigon",
+          "local/erigon:/root/.local/share/erigon"
+        ]
+        args = [
+        "goerli",
+        "--datadir=/root/.local/share/erigon",
         ]
       }
       env {

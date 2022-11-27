@@ -43,7 +43,7 @@ job "eth-node" {
           "local/erigon:/root/.local/share/erigon",
         ]
         args = [
-          "chain=goerli",
+          "--chain","goerli",
         #   "--private.api.addr=0.0.0.0:9090",
             # "--http.addr=0.0.0.0",
             # "--http.vhosts=*",
@@ -58,7 +58,7 @@ job "eth-node" {
             # "--pprof.addr=",
             # "--pprof.port=6060",
             # "--pprof.api=eth,debug,net,web3,txpool,trace,erigon,admin,personal,debug",
-            "datadir=/root/.local/share/erigon",
+            "--datadir","/root/.local/share/erigon",
             # "--metrics.influxdb",
             # "--metrics.influxdb.endpoint=http://localhost:8086",
             # "--metrics.influxdb.database=erigon",
