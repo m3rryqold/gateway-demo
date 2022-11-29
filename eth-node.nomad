@@ -8,19 +8,17 @@ job "eth-node" {
     task "eth-node" {
       driver = "docker"
 
-      config {
-        image = "thorax/erigon:stable"
-        volumes = [
-          "local/erigon:/root/.local/share/erigon"
-        ]
-        args = [
-        "goerli",
-        "--datadir=/root/.local/share/erigon",
-        ]
-      }
       env {
-        chain   = "goerli"  
+        chain   = "goerli"
         datadir = "/root/.local/share/erigon"
+      }
+
+      config {
+        image      = "thorax/erigon:latest"
+        force_pull = true
+        volumes = [
+          "local/erigon:/root/.local/share/erigon",
+        ]
       }
 
       resources {

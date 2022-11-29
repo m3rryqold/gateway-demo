@@ -118,6 +118,19 @@ nomad run eth-node.nomad
 ```bash
 nomad logs -stderr -f eth-node
 ```
+# fetch the logs from the node and check the ledger
+```bash
+nomad alloc logs -stderr -f <alloc-id>
+```
+- Check the ledger
+```bash
+nomad alloc fs <alloc-id> /root/.local/share/erigon/chaindata
+```
+# fetch block data from the node
+```bash
+curl -X POST --data '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["latest", true],"id":1}' -H "Content-Type: application/json" http://localhost:8545
+```
+
 
 # Automate deployment of the ethereum node using Ansible
 ## Initial (Manual)
