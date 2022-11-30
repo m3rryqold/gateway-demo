@@ -161,7 +161,7 @@ python manage.py runserver
 Open the following URL in your browser to access the admin panel:
 
 ```bash
-http://localhost:8000/admin
+http://localhost:8080/admin
 ```
 
 OR 
@@ -204,7 +204,7 @@ Block.objects.create(
 Open the following URL in your browser to access the API:
 
 ```bash
-http://localhost:8000/api/blocks
+http://localhost:8080/api/blocks
 ```
 
 ## Step 15. Stop the development server
@@ -229,7 +229,7 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["python", "manage.py", "runserver", "localhost:8000"]
+CMD ["python", "manage.py", "runserver", "localhost:8080"]
 ```
 
 ## Step 17. Create a requirements.txt file
@@ -254,7 +254,7 @@ docker build -t erigon_django .
 Run the Docker container:
 
 ```bash
-docker run -p 8000:8000 erigon_django
+docker run -p 8080:8080 erigon_django
 ```
 
 ## Step 20. Access the admin panel
@@ -262,7 +262,7 @@ docker run -p 8000:8000 erigon_django
 Open the following URL in your browser to access the admin panel:
 
 ```bash
-http://localhost:8000/admin
+http://localhost:8080/admin
 ```
 
 ## Step 21. Access the API
@@ -270,7 +270,7 @@ http://localhost:8000/admin
 Open the following URL in your browser to access the API:
 
 ```bash
-http://localhost:8000/api/blocks
+http://localhost:8080/api/blocks
 ```
 
 ## Step 22. Stop the Docker container
@@ -309,12 +309,12 @@ services:
     container_name: erigon_django
     restart: unless-stopped
     ports:
-      - 8000:8000
+      - 8080:8080
     depends_on:
       - erigon
     volumes:
       - erigon_django:/app
-    command: python manage.py runserver localhost:8000
+    command: python manage.py runserver localhost:8080
 
 volumes:
     erigon:
@@ -334,7 +334,7 @@ docker-compose up
 Open the following URL in your browser to access the admin panel:
 
 ```bash
-http://localhost:8000/admin
+http://localhost:8080/admin
 ```
 
 ## Step 26. Access the API
@@ -342,7 +342,7 @@ http://localhost:8000/admin
 Open the following URL in your browser to access the API:
 
 ```bash
-http://localhost:8000/api/blocks
+http://localhost:8080/api/blocks
 ```
 
 ## Step 27. Stop the Docker containers
