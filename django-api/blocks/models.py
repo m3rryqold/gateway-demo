@@ -1,0 +1,21 @@
+from django.db import models
+
+class Block(models.Model):
+    number = models.IntegerField()
+    hash = models.CharField(max_length=66)
+    parent_hash = models.CharField(max_length=66)
+    nonce = models.CharField(max_length=66)
+    sha3_uncles = models.CharField(max_length=66)
+    logs_bloom = models.CharField(max_length=512)
+    transactions_root = models.CharField(max_length=66)
+    state_root = models.CharField(max_length=66)
+    receipts_root = models.CharField(max_length=66)
+    miner = models.CharField(max_length=42)
+    difficulty = models.IntegerField()
+    total_difficulty = models.IntegerField()
+    size = models.IntegerField()
+    extra_data = models.CharField(max_length=66)
+    gas_limit = models.IntegerField()
+    gas_used = models.IntegerField()
+    timestamp = models.IntegerField()
+    uncles = models.CharField(max_length=66)

@@ -1,0 +1,74 @@
+- hosts: eth-node
+  become: yes
+  vars:
+    vm_user: mg
+  tasks:
+    - name: Install Docker
+      snap:
+        name: docker
+        state: present
+    - name: Create Docker group
+      group:
+        name: docker
+        state: present
+    - name: Add user to Docker group
+      user:
+        name: "{{ vm_user }}"
+        groups: docker
+        append: yes
+    - name: Set hostname
+      hostname:
+        name: eth-node-1
+    - name: Install Nomad
+      shell: |
+        wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg
+        echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+        sudo apt update && sudo apt install nomad
+    - name: Start Nomad agent in dev mode
+      shell: |
+        nohup sudo nomad agent -dev -bind 0.0.0.0 &
+    - name: Check Nomad agent status
+      shell: |
+        nomad node status
+        nomad server members
+        nomad status
+    - name: Create a job file
+      copy:
+        content: |
+          job "eth-node" {
+            datacenters = ["dc1"]
+            type        = "service"
+
+            group "eth-node" {
+              count = 1
+
+              task "eth-node" {
+                driver = "docker"
+
+                env {
+                  chain   = "goerli"
+                  datadir = "/root/.local/share/erigon"
+                }
+
+                config {
+                  image      = "thorax/erigon:latest"
+                  force_pull = true
+                  volumes = [
+                    "local/erigon:/root/.local/share/erigon",
+                  ]
+                }
+
+                resources {
+                  cpu    = 500
+                  memory = 512
+                }
+              }
+            }
+          }
+        dest: /home/{{ vm_user }}/eth-node.nomad
+    - name: Run the job
+      shell: |
+        nomad run /home/{{ vm_user }}/eth-node.nomad
+    - name: Check the job status
+      shell: |
+        nomad status eth-node
