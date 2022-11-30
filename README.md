@@ -37,9 +37,8 @@ nomad logs -stderr -f <alloc-id>
 ### Django App Usage
 
 #### Step 1. Visit the deployed Django REST API
-```
 https://django-erigon-merrygold.up.railway.app/
-```
+
 #### Step 2. Get sample blocks data
 ![Sample Blocks](2022-11-30-18-57-42.png)Sample Blocks
 
