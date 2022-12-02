@@ -49,6 +49,7 @@ https://django-erigon-merrygold.up.railway.app/
 - capture block data and stream to Django REST API
 - create a React app to display block data
 - add Django api to the Nomad cluster
+- set up monitoring with Prometheus and Grafana
 - store block data in Postgres
 - automate provisioning of the Nomad cluster with Terraform
 - refactor the ansible playbook to use roles
